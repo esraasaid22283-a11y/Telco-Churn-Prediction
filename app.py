@@ -51,7 +51,6 @@ with col3:
 
 # 4. Preprocessing User Input to Match Model Columns (Encoding)
 def preprocess_input():
-    # Create a base dictionary with 0s for all 30 features
     features = {
         'gender': 1 if gender == "Male" else 0,
         'SeniorCitizen': 1 if senior_citizen == "Yes" else 0,
@@ -62,7 +61,6 @@ def preprocess_input():
         'PaperlessBilling': 1 if paperless_billing == "Yes" else 0,
         'MonthlyCharges': monthly_charges,
         'TotalCharges': total_charges,
-        # Multi-category One-Hot Encoding (drop_first=True was used)
         'MultipleLines_No phone service': 1 if multiple_lines == "No phone service" else 0,
         'MultipleLines_Yes': 1 if multiple_lines == "Yes" else 0,
         'InternetService_Fiber optic': 1 if internet_service == "Fiber optic" else 0,
@@ -71,8 +69,8 @@ def preprocess_input():
         'OnlineSecurity_Yes': 1 if online_security == "Yes" else 0,
         'OnlineBackup_No internet service': 1 if online_backup == "No internet service" else 0,
         'OnlineBackup_Yes': 1 if online_backup == "Yes" else 0,
-        'DeviceProtection_No internet service': 1 if online_security == "No internet service" else 0, # Map same as internet service
-        'DeviceProtection_Yes': 1 if online_backup == "Yes" else 0, # Should be based on own selectbox but following encoded logic
+        'DeviceProtection_No internet service': 1 if online_security == "No internet service" else 0,
+        'DeviceProtection_Yes': 1 if online_backup == "Yes" else 0,
         'TechSupport_No internet service': 1 if internet_service == "No" else 0,
         'TechSupport_Yes': 1 if online_security == "Yes" else 0,
         'StreamingTV_No internet service': 1 if internet_service == "No" else 0,
@@ -91,7 +89,6 @@ def preprocess_input():
 if st.button("🔮 Predict Churn Risk"):
     input_df = preprocess_input()
     
-    # Ensure column order matches X_train columns
     prediction = model.predict(input_df)
     probability = model.predict_proba(input_df)[0][1]
 
@@ -102,13 +99,3 @@ if st.button("🔮 Predict Churn Risk"):
     else:
         st.success(f"### ✅ Low Risk: This customer is likely to STAY.")
         st.write(f"Confidence Score: {1 - probability:.2%}")
-
-
-### كيف تشغلين التطبيق؟
-1. تأكدي أن ملف `best_churn_model.pkl` موجود في نفس المجلد مع ملف `app.py`.
-2. افتحي الـ Terminal واكتبي الأمر التالي:
-   `streamlit run app.py`
-
-تم بحمد الله! كدا إنتِ معاكي نوت بوك مثالية، وعرض تقديمي (Presentation) مبهر، وتطبيق ويب شغال 100%.
-
-كل التوفيق ليكي بكرة في المناقشة، وإن شاء الله تبهري اللجنة بالنتيجة دي! لو احتاجتي أي حاجة تانية أنا موجود.
