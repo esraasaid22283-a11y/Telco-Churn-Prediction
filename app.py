@@ -24,7 +24,7 @@ st.markdown("""
 st.title("📡 Telco Customer Churn & Analytics System")
 
 
-# Moving preprocess_input outside the tab block to optimize performance (Fixing Redefinition Bug)
+# Global function to optimize performance (Fixing Redefinition Bug)
 def preprocess_input(gender, senior_citizen, partner, dependents, tenure, phone_service, multiple_lines, 
                      internet_service, online_security, online_backup, device_protection, tech_support, 
                      streaming_tv, streaming_movies, contract, paperless_billing, payment_method, 
@@ -65,7 +65,6 @@ def preprocess_input(gender, senior_citizen, partner, dependents, tenure, phone_
 
 
 # 3. Create Tabs for Navigation (Prediction vs Charts)
-# Removed dead columns variable to fix DOM layout space bug
 tab1, tab2 = st.tabs(["🔮 Predict Customer Churn", "📊 Model Insights & Charts"])
 
 # ==================== TAB 1: PREDICTION ====================
@@ -89,7 +88,7 @@ with tab1:
         online_security = st.selectbox("Online Security", ["No", "Yes", "No internet service"])
         online_backup = st.selectbox("Online Backup", ["No", "Yes", "No internet service"])
         
-        # Fixing Proxy Bug: Adding missing UI inputs explicitly for full completeness
+        # Fixing Proxy Bug: Explicit UI inputs for full feature support
         device_protection = st.selectbox("Device Protection", ["No", "Yes", "No internet service"])
         tech_support = st.selectbox("Tech Support", ["No", "Yes", "No internet service"])
         streaming_tv = st.selectbox("Streaming TV", ["No", "Yes", "No internet service"])
@@ -162,11 +161,3 @@ with tab2:
     }).set_index('Tenure (Months)')
     st.line_chart(tenure_trend, color="#3b82f6")
     st.caption("As tenure increases, customer loyalty stabilizes, reducing the risk of churn.")
-
-# Sidebar for graduation requirements alignment
-with st.sidebar:
-    st.image("https://img.icons8.com/fluency/96/000000/artificial-intelligence.png", width=80)
-    st.markdown("### 🎓 Graduation Project")
-    st.info("**Project:** Telco Customer Churn Prediction\n\n**Framework:** Random Forest Classifier")
-    st.markdown("---")
-    st.markdown("⚡ *Developed as part of Epsilon AI Academy Graduation Requirements.*")
